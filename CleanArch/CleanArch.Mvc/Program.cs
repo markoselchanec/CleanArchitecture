@@ -1,13 +1,23 @@
+using CleanArch.Infra.Data.Context;
 using CleanArch.Mvc.Data;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("LocalConnection");
+var identityConnectionString = builder.Configuration.GetConnectionString("UniversityIdentityDBConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseNpgsql(connectionString));
+    options.UseNpgsql(identityConnectionString));
+
+var universityDBconnectionString = builder.Configuration.GetConnectionString("UniversityDBConnection");
+builder.Services.AddDbContext<UniversityDBContext>(options =>
+    options.UseNpgsql(universityDBconnectionString));
+
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
