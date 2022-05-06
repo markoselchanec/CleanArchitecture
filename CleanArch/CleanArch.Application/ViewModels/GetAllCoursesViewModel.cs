@@ -5,9 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CleanArch.Domain.Interfaces
+namespace CleanArch.Application.ViewModels
 {
-    public interface ICourseRepository : IGenericRepository<Course, int>
+    public class GetAllCoursesViewModel
     {
+        public IEnumerable<Course> Courses { get; set; }
     }
 }

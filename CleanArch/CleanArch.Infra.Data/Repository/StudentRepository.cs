@@ -10,11 +10,10 @@ using System.Threading.Tasks;
 
 namespace CleanArch.Infra.Data.Repository
 {
-    public class CourseRepository : GenericRepository<Course, int> ,ICourseRepository
+    public class StudentRepository : GenericRepository<Student,int> , IStudentRepository
     {
-        public CourseRepository(UniversityDBContext ctx) : base(ctx)
+        public StudentRepository(UniversityDBContext ctx) : base(ctx)
         {
-
         }
     }
 }

@@ -7,11 +7,10 @@ using System.Threading.Tasks;
 
 namespace CleanArch.Application.ViewModels
 {
-    public class CourseViewModel
+    public class StudentViewModel
     {
         public string Name { get; set; }
-        public string Description { get; set; }
-        public string ImageUrl { get; set; }
-        public List<Student> Students { get; set; }
+
+        public List<Course> Courses { get; set; }
     }
 }

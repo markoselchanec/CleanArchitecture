@@ -1,0 +1,10 @@
+﻿@model StudentViewModel
+
+<form method="post" asp-action="Create">
+
+    <label asp-for="@Model.Name"></label>
+    <input asp-for="@Model.Name" />
+
+    <button type="submit" class="btn-primary btn">Create Student</button>
+
+</form>

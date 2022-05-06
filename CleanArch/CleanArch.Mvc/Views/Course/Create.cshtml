@@ -1,0 +1,22 @@
+﻿@model CourseViewModel
+
+<form method="post" enctype="multipart/form-data" asp-action="Create">
+    
+    <div class="mb-3 col-6">
+        <label asp-for="@Model.Name"></label>
+        <input class="form-control" asp-for="@Model.Name" />
+    </div>
+    
+    <div class="mb-3 col-6">
+        <label asp-for="@Model.Description"></label>
+        <input class="form-control" asp-for="@Model.Description" />
+    </div>
+    
+    <div class="mb-3 col-6">
+        <label asp-for="@Model.ImageUrl"></label>
+        <input type="file" id="uploadBox" name="file" asp-for="@Model.ImageUrl" class="form-control" />   
+    </div>
+
+    <button type="submit" class="btn-primary btn">Create Course</button>
+
+</form>

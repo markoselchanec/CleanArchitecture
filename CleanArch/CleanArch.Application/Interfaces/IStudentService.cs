@@ -1,5 +1,4 @@
 ﻿using CleanArch.Application.ViewModels;
-using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +7,10 @@ using System.Threading.Tasks;
 
 namespace CleanArch.Application.Interfaces
 {
-    public interface ICourseService
+    public interface IStudentService
     {
-        GetAllCoursesViewModel GetCourses();
-        void AddCourse(CourseViewModel course, IFormFile? file);
+        GetAllStudentsViewModel GetStudents();
+        void AddStudent(StudentViewModel student);
+        StudentViewModel GetStudent(int id);
     }
 }

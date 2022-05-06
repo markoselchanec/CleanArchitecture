@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CleanArch.Domain.Interfaces
 {
-    public interface ICourseRepository : IGenericRepository<Course, int>
+    public interface IStudentRepository : IGenericRepository<Student, int>
     {
     }
 }

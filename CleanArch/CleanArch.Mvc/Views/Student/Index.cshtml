@@ -1,0 +1,33 @@
+﻿@model GetAllStudentsViewModel
+
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <h2 class="text-primary">Available Students:</h2>
+            </div>
+            <div class="col-6 text-end">
+                <a asp-action="Create" class="btn-primary btn">Add new Student</a>
+            </div>
+        </div>
+    </div>
+    <hr />
+
+    <table class="table table-striped text-center table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th style="width:35%;">Index</th>
+                <th>Name</th>
+                <th style="width:20%;"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var student in @Model.Students)
+           {
+               <tr>
+                   <td>@student.Id</td>
+                   <td>@student.Name</td>
+                   <td><a class="btn-primary btn" asp-action="Details" asp-route-Id="@student.Id">View Student</a></td>
+               </tr>
+           }
+        </tbody>
+    </table>

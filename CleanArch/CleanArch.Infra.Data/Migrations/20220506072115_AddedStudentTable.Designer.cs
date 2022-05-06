@@ -2,6 +2,7 @@
 using CleanArch.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -10,9 +11,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CleanArch.Infra.Data.Migrations
 {
     [DbContext(typeof(UniversityDBContext))]
-    partial class UniversityDBContextModelSnapshot : ModelSnapshot
+    [Migration("20220506072115_AddedStudentTable")]
+    partial class AddedStudentTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,6 +43,9 @@ namespace CleanArch.Infra.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("StudentId")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
                     b.ToTable("Courses");
@@ -54,6 +59,9 @@ namespace CleanArch.Infra.Data.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("CourseId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
@@ -65,30 +73,30 @@ namespace CleanArch.Infra.Data.Migrations
 
             modelBuilder.Entity("CourseStudent", b =>
                 {
-                    b.Property<int>("CoursesId")
+                    b.Property<int>("CourseId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("StudentsId")
+                    b.Property<int>("StudentId")
                         .HasColumnType("integer");
 
-                    b.HasKey("CoursesId", "StudentsId");
+                    b.HasKey("CourseId", "StudentId");
 
-                    b.HasIndex("StudentsId");
+                    b.HasIndex("StudentId");
 
                     b.ToTable("CourseStudent");
                 });
 
             modelBuilder.Entity("CourseStudent", b =>
                 {
-                    b.HasOne("CleanArch.Domain.Models.Course", null)
+                    b.HasOne("CleanArch.Domain.Models.Student", null)
                         .WithMany()
-                        .HasForeignKey("CoursesId")
+                        .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CleanArch.Domain.Models.Student", null)
+                    b.HasOne("CleanArch.Domain.Models.Course", null)
                         .WithMany()
-                        .HasForeignKey("StudentsId")
+                        .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
