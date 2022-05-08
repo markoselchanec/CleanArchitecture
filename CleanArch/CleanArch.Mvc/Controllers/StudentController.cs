@@ -10,9 +10,11 @@ namespace CleanArch.Mvc.Controllers
     public class StudentController : Controller
     {
         private IStudentService _studentService;
-        public StudentController(IStudentService studentService)
+        private ICourseService _courseService;
+        public StudentController(IStudentService studentService, ICourseService courseService)
         {
             _studentService = studentService;
+            _courseService = courseService; 
         }
         public IActionResult Index()
         {
@@ -35,6 +37,20 @@ namespace CleanArch.Mvc.Controllers
 
 
             return View(student);
+        }
+        public IActionResult AddCourse(int id)
+        {
+            UpdateStudentViewModel student = _studentService.getUpdateStudent(id);
+
+            
+            return View(student);
+        }       
+        [HttpPost]
+        public IActionResult AddCourse(UpdateStudentViewModel updateStudentViewModel)
+        {
+            _studentService.UpdateStudent(updateStudentViewModel);
+            int studentId = updateStudentViewModel.ExistingStudent.Id;
+            return RedirectToAction("Details", new {id = studentId});
         }
     }
 }

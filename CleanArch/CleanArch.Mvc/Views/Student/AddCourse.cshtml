@@ -1,0 +1,18 @@
+﻿@model UpdateStudentViewModel
+
+<h1>ADD COURSE</h1>
+
+<form method="post" asp-action="AddCourse">
+    <input hidden asp-for="@Model.ExistingStudent.Id" />
+    <input hidden asp-for="@Model.ExistingStudent.Name" />
+    
+    <label asp-for="@Model.CoursesListIds"></label>
+    <select asp-for="@Model.CoursesListIds" asp-items="@Model.CoursesList" class="form-select">
+        <option disabled selected>Choose a course</option>
+    </select>
+        
+    <button type="submit" class="btn-primary btn">Enroll in Course</button>
+    <a class="btn-secondary btn" asp-action="Details" asp-route-id="@Model.ExistingStudent.Id"> Back to Student </a>
+</form>
+
+

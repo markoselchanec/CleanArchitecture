@@ -9,5 +9,6 @@ namespace CleanArch.Domain.Interfaces
 {
     public interface IStudentRepository : IGenericRepository<Student, int>
     {
+        void Update(Student student);
     }
 }

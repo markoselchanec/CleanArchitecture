@@ -4,6 +4,7 @@ using CleanArch.Domain.Interfaces;
 using CleanArch.Domain.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,9 +50,10 @@ namespace CleanArch.Application.Services
                 Name = course.Name,
                 Description = course.Description,
                 Students = course.Students,
-                ImageUrl = @"images\"+fileName+extension,
+                ImageUrl = @"\images\"+fileName+extension,
             };
             _courseRepository.Add(newCourse);
         }
+
     }
 }

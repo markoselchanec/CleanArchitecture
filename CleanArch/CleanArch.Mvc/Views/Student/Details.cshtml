@@ -3,8 +3,18 @@
 <div class="body-content">
     <div class="container">
 
-        <h2 class="text-primary">@Model.Name</h2>
-
+        <div class="container">
+            <div class="row">
+                <div class="col-6">
+                    <h2 class="text-primary">@Model.Name</h2>
+                </div>
+                <div class="col-6 text-end">
+                    <a class="btn-primary btn" asp-action="AddCourse" asp-route-id="@Model.Id">Enroll in a course</a>
+                    <a class="btn-secondary btn" asp-action="Index"> Back to Students </a>
+                </div>
+            </div>
+        </div>
+        
         <hr />
 
         <h2 class="text-primary">Classes:</h2>
@@ -16,7 +26,7 @@
         {
             <div class="col-3">
             <div class="card" style="width: 18rem;">
-                <img src="@course.ImageUrl" style="object-fit:cover; height:300px;" class="card-img-top" alt="...">
+                <img src="@Url.Content(@course.ImageUrl)" style="object-fit:cover; height:300px;" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title text-primary">@course.Name</h5>
                     <p class="card-text text-secondary">@course.Description</p>
