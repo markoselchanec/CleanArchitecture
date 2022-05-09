@@ -12,7 +12,11 @@ namespace CleanArch.Application.Interfaces
         GetAllStudentsViewModel GetStudents();
         void AddStudent(StudentViewModel student);
         StudentViewModel GetStudent(int id);
-        void UpdateStudent(UpdateStudentViewModel updateStudentViewModel);
-        UpdateStudentViewModel getUpdateStudent(int id);
+        void AddCourse(EnrollCourseStudentViewModel updateStudentViewModel);
+        EnrollCourseStudentViewModel getCourseList(int id);
+        void RemoveCourse(int courseId, int studentId);
+        void RemoveStudent(int id);
+        UpdateStudentViewModel GetUpdateStudentViewModel(int id);
+        void UpdateStudent(UpdateStudentViewModel student);
     }
 }

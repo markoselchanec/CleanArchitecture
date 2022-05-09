@@ -1,8 +1,8 @@
-﻿@model UpdateStudentViewModel
+﻿@model EnrollCourseStudentViewModel
 
 <h1>ADD COURSE</h1>
 
-<form method="post" asp-action="AddCourse">
+<form method="post" asp-action="EnrollCourse">
     <input hidden asp-for="@Model.ExistingStudent.Id" />
     <input hidden asp-for="@Model.ExistingStudent.Name" />
     

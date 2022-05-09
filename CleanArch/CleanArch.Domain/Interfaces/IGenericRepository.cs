@@ -11,6 +11,7 @@ namespace CleanArch.Domain.Interfaces
     {
         IEnumerable<TClass> GetAll(string includeProperties = null);
         TClass Add(TClass cl);
+        void Delete(TId id);
         TClass GetFirstOrDefault(Expression<Func<TClass, bool>> expression, string includeProperties = null);
     }
 }

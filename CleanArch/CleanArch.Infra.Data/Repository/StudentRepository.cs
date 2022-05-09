@@ -21,9 +21,6 @@ namespace CleanArch.Infra.Data.Repository
         public void Update(Student student)
         {
             var objFromDb = _ctx.Students.FirstOrDefault(x => x.Id == student.Id);
-
-            
-
             if (objFromDb != null)
             {
                 objFromDb.Name = student.Name;

@@ -9,7 +9,7 @@
                     <h2 class="text-primary">@Model.Name</h2>
                 </div>
                 <div class="col-6 text-end">
-                    <a class="btn-primary btn" asp-action="AddCourse" asp-route-id="@Model.Id">Enroll in a course</a>
+                    <a class="btn-primary btn" asp-action="Update" asp-route-id="@Model.Id"> Update Student </a>
                     <a class="btn-secondary btn" asp-action="Index"> Back to Students </a>
                 </div>
             </div>
@@ -17,6 +17,12 @@
         
         <hr />
 
+        <div class="row">
+            <a class="btn-primary btn" asp-action="EnrollCourse" asp-route-id="@Model.Id">Enroll in a course</a>
+        </div>
+
+        <hr />
+   
         <h2 class="text-primary">Classes:</h2>
 
         <br />
@@ -31,6 +37,7 @@
                     <h5 class="card-title text-primary">@course.Name</h5>
                     <p class="card-text text-secondary">@course.Description</p>
                 </div>
+                <a class="btn btn-danger" asp-action="RemoveCourse" asp-route-courseId="@course.Id" asp-route-modelId="@Model.Id">Drop Course</a>
             </div>
             </div>
         }

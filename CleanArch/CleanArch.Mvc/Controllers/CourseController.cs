@@ -20,7 +20,6 @@ namespace CleanArch.Mvc.Controllers
         public IActionResult Index()
         {
             GetAllCoursesViewModel model = _courseService.GetCourses();
-
             return View(model);
         }
         public IActionResult Create()
@@ -31,7 +30,6 @@ namespace CleanArch.Mvc.Controllers
         public IActionResult Create(CourseViewModel createCourse, IFormFile? file)
         {
             _courseService.AddCourse(createCourse, file);
-
             return RedirectToAction("Index");
         }
     }

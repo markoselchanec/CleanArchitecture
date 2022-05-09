@@ -33,18 +33,14 @@ namespace CleanArch.Application.Services
 
         public void AddCourse(CourseViewModel course, IFormFile? file)
         {
-
             string wwwRootPath = _webHostEnvironment.WebRootPath;
-
             string fileName = Guid.NewGuid().ToString(); 
             var uploads = Path.Combine(wwwRootPath, @"images");
             var extension = Path.GetExtension(file.FileName);
-
             using (var fileStream = new FileStream(Path.Combine(uploads, fileName + extension), FileMode.Create))
             {
                file.CopyTo(fileStream);
             };
-
             Course newCourse = new Course()
             {
                 Name = course.Name,
@@ -54,6 +50,5 @@ namespace CleanArch.Application.Services
             };
             _courseRepository.Add(newCourse);
         }
-
     }
 }

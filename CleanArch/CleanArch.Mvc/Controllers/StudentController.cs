@@ -10,11 +10,9 @@ namespace CleanArch.Mvc.Controllers
     public class StudentController : Controller
     {
         private IStudentService _studentService;
-        private ICourseService _courseService;
-        public StudentController(IStudentService studentService, ICourseService courseService)
+        public StudentController(IStudentService studentService)
         {
             _studentService = studentService;
-            _courseService = courseService; 
         }
         public IActionResult Index()
         {
@@ -34,23 +32,40 @@ namespace CleanArch.Mvc.Controllers
         public IActionResult Details(int id)
         {
             StudentViewModel student = _studentService.GetStudent(id);
-
-
             return View(student);
         }
-        public IActionResult AddCourse(int id)
+        public IActionResult Update(int id)
         {
-            UpdateStudentViewModel student = _studentService.getUpdateStudent(id);
-
-            
+            UpdateStudentViewModel studentToUpdate = _studentService.GetUpdateStudentViewModel(id);
+            return View(studentToUpdate);
+        }        
+        [HttpPost]
+        public IActionResult Update(UpdateStudentViewModel updatedStudent) 
+        {
+            _studentService.UpdateStudent(updatedStudent);
+            return RedirectToAction("Details", new { id = updatedStudent.Id });
+        }
+        public IActionResult Delete(int id)
+        {
+            _studentService.RemoveStudent(id);
+            return RedirectToAction("Index");
+        }
+        public IActionResult EnrollCourse(int id)
+        {
+            EnrollCourseStudentViewModel student = _studentService.getCourseList(id);
             return View(student);
         }       
         [HttpPost]
-        public IActionResult AddCourse(UpdateStudentViewModel updateStudentViewModel)
+        public IActionResult EnrollCourse(EnrollCourseStudentViewModel updateStudentViewModel)
         {
-            _studentService.UpdateStudent(updateStudentViewModel);
+            _studentService.AddCourse(updateStudentViewModel);
             int studentId = updateStudentViewModel.ExistingStudent.Id;
             return RedirectToAction("Details", new {id = studentId});
+        }
+        public IActionResult RemoveCourse(int courseId, int modelId)
+        {
+            _studentService.RemoveCourse(courseId, modelId);
+            return RedirectToAction("Details", new { id = modelId });
         }
     }
 }

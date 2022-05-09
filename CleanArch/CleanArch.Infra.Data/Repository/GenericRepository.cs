@@ -24,6 +24,13 @@ namespace CleanArch.Infra.Data.Repository
             return cl;
         }
 
+        public void Delete(TId id)
+        {
+            var entity = _ctx.Set<TClass>().Find(id);
+            _ctx.Set<TClass>().Remove(entity);
+            _ctx.SaveChanges();
+        }
+
         public IEnumerable<TClass> GetAll(string includeProperties = null)
         {
             IQueryable<TClass> query = _ctx.Set<TClass>();
@@ -39,7 +46,6 @@ namespace CleanArch.Infra.Data.Repository
 
         public TClass GetFirstOrDefault(Expression<Func<TClass, bool>> expression, string includeProperties = null)
         {
-            //return _ctx.Set<TClass>().FirstOrDefault(x => x.Id == id);
             IQueryable<TClass> query = _ctx.Set<TClass>();
             if (includeProperties != null)
             {
@@ -48,7 +54,6 @@ namespace CleanArch.Infra.Data.Repository
                     query = query.Include(includeProp);
                 }
             }
-            
             return query.FirstOrDefault(expression);
         }
     }

@@ -30,7 +30,7 @@ namespace CleanArch.Application.Services
             Student newStudent = new()
             {
                 Name = student.Name,
-                Courses = student.Courses.ToList()
+                Courses = new List<Course>()
             };
             _studentRepository.Add(newStudent); 
         }
@@ -38,7 +38,6 @@ namespace CleanArch.Application.Services
         public StudentViewModel GetStudent(int id)
         {
             Student student = _studentRepository.GetFirstOrDefault(x => x.Id == id, "Courses");
-
             StudentViewModel studentViewModel = new()
             {
                 Id = student.Id,
@@ -48,12 +47,10 @@ namespace CleanArch.Application.Services
             return studentViewModel;
         }
 
-        public UpdateStudentViewModel getUpdateStudent(int id)
+        public EnrollCourseStudentViewModel getCourseList(int id)
         {
             var student = _studentRepository.GetFirstOrDefault(x => x.Id == id, "Courses");
-
-
-            UpdateStudentViewModel updateStudentModel = new()
+            EnrollCourseStudentViewModel updateStudentModel = new()
             {
                 ExistingStudent = student,
                 CoursesList = _courseRepository.GetAll().Where(x=> !student.Courses.Contains(x)).Select(x => new SelectListItem
@@ -63,25 +60,47 @@ namespace CleanArch.Application.Services
                 }),
                 CoursesListIds = student.Courses.Select(x => x.Id)
             };
-
-
             return updateStudentModel;
         }
 
-        public void UpdateStudent(UpdateStudentViewModel updateStudentViewModel)
+        public void AddCourse(EnrollCourseStudentViewModel updateStudentViewModel)
         {
             Student oldStudent = _studentRepository.GetFirstOrDefault(x => x.Id == updateStudentViewModel.ExistingStudent.Id, "Courses");
-
-
-            //Remove course
-            //oldStudent.Courses.Where(x => !updateStudentViewModel.CoursesListIds.Contains(x.Id)).ToList().ForEach(x=> oldStudent.Courses.Remove(x));
-
             var currentCourseIds = oldStudent.Courses.Select(x => x.Id).ToList();
             _courseRepository.GetAll()
                             .Where(x => updateStudentViewModel.CoursesListIds.Except(currentCourseIds).Contains(x.Id)).ToList().ForEach(x => oldStudent.Courses.Add(x));
-
-
             _studentRepository.Update(oldStudent);
+        }
+
+        public void RemoveCourse(int courseId, int studentId)
+        {
+            var student = _studentRepository.GetFirstOrDefault(x=> x.Id == studentId, "Courses");
+            student.Courses.Remove(_courseRepository.GetFirstOrDefault(x => x.Id == courseId));
+            _studentRepository.Update(student);
+
+        }
+
+        public void RemoveStudent(int id)
+        {
+            _studentRepository.Delete(id);
+        }
+
+        public UpdateStudentViewModel GetUpdateStudentViewModel(int id)
+        {
+            var student = _studentRepository.GetFirstOrDefault(x => x.Id == id);
+            UpdateStudentViewModel updateStudent = new()
+            {
+                Id = student.Id,
+                Name = student.Name,
+            };
+            return updateStudent;
+        }
+
+        public void UpdateStudent(UpdateStudentViewModel student)
+        {
+            Student updatedStudent = _studentRepository.GetFirstOrDefault(x=>x.Id==student.Id);
+            updatedStudent.Name = student.Name;
+            _studentRepository.Update(updatedStudent);
         }
     }
 }
